@@ -17,9 +17,13 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Task Manager</h1>
+      <h1>Welcome to Task Manager</h1> {/* Welcome message */}
+      <h2>Submit a New Task</h2> {/* Subheading for the form */}
       <TaskForm fetchTasks={fetchTasks} />
-      <TaskList tasks={tasks} />
+      <h2>Your Tasks</h2> {/* Subheading for the task list */}
+      <div className="task-list">
+        <TaskList tasks={tasks} />
+      </div>
     </div>
   );
 }
