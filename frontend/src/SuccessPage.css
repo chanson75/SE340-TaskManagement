@@ -1,0 +1,21 @@
+.success-page {
+    text-align: center;
+    padding: 50px;
+  }
+  
+  .success-page h1 {
+    color: green;
+  }
+  
+  .success-page p {
+    margin: 20px 0;
+  }
+  
+  .success-page a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .success-page a:hover {
+    text-decoration: underline;
+  }

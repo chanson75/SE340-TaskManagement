@@ -1,86 +1,10 @@
-/* App.css */
-
-.App {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #121212; /* Dark gray background for the app container */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  border-radius: 8px;
-  color: #fff; /* White text for better contrast */
-}
-
-h1 {
-  text-align: center;
-  color: #fff; /* White text for better contrast */
-  font-size: 2.5em;
-  margin-bottom: 20px;
-}
-
-h2 {
-  text-align: left;
-  color: #fff; /* White text for better contrast */
-  font-size: 1.5em;
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-input, select, button {
-  padding: 10px;
-  font-size: 16px;
-  background-color: #333; /* Dark gray background for inputs and buttons */
-  color: #fff; /* White text for better contrast */
-  border: 1px solid #555; /* Dark gray border */
-  border-radius: 4px;
-  transition: border-color 0.3s ease;
-}
-
-input:focus, select:focus, button:focus {
-  border-color: #28a745; /* Green border on focus */
-  outline: none;
-}
-
-button {
-  background-color: #28a745; /* Green background for the submit button */
-  color: #fff; /* White text for better contrast */
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #218838; /* Darker green on hover */
-}
-
-.task-list {
-  margin-top: 20px;
-}
-
-.task-item {
-  background-color: #1e1e1e; /* Darker gray background for task boxes */
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  border: 1px solid #333; /* Dark gray border for task boxes */
-  transition: background-color 0.3s ease;
-}
-
-.task-item:hover {
-  background-color: #282828; /* Slightly darker gray on hover */
-}
-
-.task-item h3 {
-  margin: 0 0 10px 0;
-  color: #fff; /* White text for better contrast */
-}
-
-.task-item p {
-  margin: 5px 0;
-  color: #ccc; /* Light gray text for better contrast */
-}
+body {
+    background-color: grey;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .App {
+    text-align: center;
+    padding: 20px;
+  }
