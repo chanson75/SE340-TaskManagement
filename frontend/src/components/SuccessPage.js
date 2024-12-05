@@ -1,15 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './SuccessPage.css';
 
-const SuccessPage = () => {
+function SuccessPage() {
   return (
-    <div className="success-page">
-      <h1>Success!</h1>
-      <p>Your task has been successfully added to the database.</p>
-      <Link to="/tasks">View Tasks</Link>
+    <div>
+      <h1>Your task has been successfully submitted!</h1>
+      <Link to="/">Submit another task</Link>
     </div>
   );
-};
+}
 
 export default SuccessPage;

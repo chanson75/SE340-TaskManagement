@@ -1,10 +1,24 @@
 body {
-    background-color: grey;
-    margin: 0;
     font-family: Arial, sans-serif;
   }
   
-  .App {
-    text-align: center;
-    padding: 20px;
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: auto;
+  }
+  
+  label {
+    margin-bottom: 10px;
+  }
+  
+  button {
+    margin-top: 20px;
+  }
+  
+  .task-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
   }

@@ -1,10 +1,11 @@
 FROM node:14
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-COPY package.json ./
+COPY package*.json ./
 RUN npm install
 
 COPY . .
 
-CMD ["npm", "start"]
+EXPOSE 5000
+CMD ["node", "server.js"]
