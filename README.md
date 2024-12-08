@@ -2,4 +2,4 @@ Current Status: WE ARE WORKING, just lots of hoops to go through, I will demo on
 
 UPDATE: I applied some better architecture principles by splitting up the different pages and styling files into separate files apart from the main App.js and App.css files. I will work on a walkthrough to set this stuff up on your local machines to run on Sunday the 8th of December 2024. If anyone has any styling suggestions, please let me know. Otherwise, I think the system as a whole is working pretty well.
 
-ANOTHER UPDATE: I added some new functionality, mainly the option to edit tasks, along with some different files.
+ANOTHER UPDATE: I added some new functionality, mainly the option to edit tasks, along with some different files. I also uploaded steps to run, it's kinda a lot, please let me know if you have any issues running.
