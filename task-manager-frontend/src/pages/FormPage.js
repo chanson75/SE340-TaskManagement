@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import './FormPage.css'; // Import the CSS file
+import DueDateField from './plugins/DueDateField';
+import PriorityField from './plugins/PriorityField';
+import StatusField from './plugins/StatusField';
 
 const FormPage = () => {
   const getCurrentDate = () => {
@@ -50,27 +53,9 @@ const FormPage = () => {
           <label>Description:</label>
           <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
         </div>
-        <div>
-          <label>Due Date:</label>
-          <input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
-        </div>
-        <div>
-          <label>Priority:</label>
-          <select value={priority} onChange={(e) => setPriority(e.target.value)}>
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
-          </select>
-        </div>
-        <div>
-          <label>Status:</label>
-          <select value={status} onChange={(e) => setStatus(e.target.value)}>
-            <option value="Not Started">Not Started</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Review">Review</option>
-            <option value="Completed">Completed</option>
-          </select>
-        </div>
+        <DueDateField dueDate={dueDate} setDueDate={setDueDate} />
+        <PriorityField priority={priority} setPriority={setPriority} />
+        <StatusField status={status} setStatus={setStatus} />
         <div className="button-container">
           <button type="submit" className="wide-button">Submit</button>
           <Link to="/tasks">
