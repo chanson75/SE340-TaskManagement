@@ -5,6 +5,8 @@ import './TasksPage.css'; // Import the CSS file
 
 const TasksPage = () => {
   const [tasks, setTasks] = useState([]);
+  const [editingTaskId, setEditingTaskId] = useState(null);
+  const [editedTask, setEditedTask] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,6 +19,27 @@ const TasksPage = () => {
     fetchTasks();
   }, []);
 
+  const handleEditClick = (task) => {
+    setEditingTaskId(task.id);
+    setEditedTask(task);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditedTask({ ...editedTask, [name]: value });
+  };
+
+  const handleSaveClick = async (taskId) => {
+    try {
+      console.log('Saving task:', editedTask); // Debugging log
+      await axios.put(`http://localhost:3000/tasks/${taskId}`, editedTask);
+      setTasks(tasks.map(task => (task.id === taskId ? editedTask : task)));
+      setEditingTaskId(null);
+    } catch (err) {
+      console.error('Error updating task:', err);
+    }
+  };
+
   return (
     <div className="container">
       <h1>All Tasks</h1>
@@ -24,11 +47,57 @@ const TasksPage = () => {
       <ul>
         {tasks.map((task) => (
           <li key={task.id}>
-            <h2>{task.title}</h2>
-            <p>{task.description}</p>
-            <p>{task.due_date.slice(0, 10)}</p> {/* Format the due date */}
-            <p>{task.priority}</p>
-            <p>{task.status}</p>
+            {editingTaskId === task.id ? (
+              <div>
+                <input
+                  type="text"
+                  name="title"
+                  value={editedTask.title}
+                  onChange={handleInputChange}
+                />
+                <input
+                  type="text"
+                  name="description"
+                  value={editedTask.description}
+                  onChange={handleInputChange}
+                />
+                <input
+                  type="date"
+                  name="due_date"
+                  value={editedTask.due_date.slice(0, 10)}
+                  onChange={handleInputChange}
+                />
+                <select
+                  name="priority"
+                  value={editedTask.priority}
+                  onChange={handleInputChange}
+                >
+                  <option value="High">High</option>
+                  <option value="Medium">Medium</option>
+                  <option value="Low">Low</option>
+                </select>
+                <select
+                  name="status"
+                  value={editedTask.status}
+                  onChange={handleInputChange}
+                >
+                  <option value="Not Started">Not Started</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Review">Review</option>
+                  <option value="Completed">Completed</option>
+                </select>
+                <button onClick={() => handleSaveClick(task.id)}>Save</button>
+              </div>
+            ) : (
+              <div>
+                <h2>{task.title}</h2>
+                <p>{task.description}</p>
+                <p>{task.due_date.slice(0, 10)}</p> {/* Format the due date */}
+                <p>{task.priority}</p>
+                <p>{task.status}</p>
+                <button onClick={() => handleEditClick(task)}>Edit</button>
+              </div>
+            )}
           </li>
         ))}
       </ul>
