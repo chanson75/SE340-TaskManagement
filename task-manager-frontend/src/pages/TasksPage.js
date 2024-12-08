@@ -12,8 +12,7 @@ const TasksPage = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       const result = await axios.get('http://localhost:3000/tasks');
-      const priorityOrder = { 'High': 1, 'Medium': 2, 'Low': 3 };
-      const sortedTasks = result.data.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+      const sortedTasks = result.data.sort((a, b) => new Date(a.due_date) - new Date(b.due_date));
       setTasks(sortedTasks);
     };
     fetchTasks();
