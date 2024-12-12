@@ -56,14 +56,6 @@ app.get('/tasks/:id', async (req, res) => {
   }
 });
 
-app.get('/', (req, res) => {
-  res.send('Welcome to the Task Manager API');
-});
-
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-});
-
 // Add the PUT route to update a task
 app.put('/tasks/:id', async (req, res) => {
   const { id } = req.params;
@@ -83,4 +75,27 @@ app.put('/tasks/:id', async (req, res) => {
     console.error('Error updating task:', err);
     res.status(500).send('Server error');
   }
+});
+
+// Add the DELETE route to remove a task
+app.delete('/tasks/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await pool.query('DELETE FROM tasks WHERE id = $1 RETURNING *', [id]);
+    if (result.rows.length === 0) {
+      return res.status(404).send('Task not found');
+    }
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error('Error deleting task:', err);
+    res.status(500).send('Server error');
+  }
+});
+
+app.get('/', (req, res) => {
+  res.send('Welcome to the Task Manager API');
+});
+
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
 });

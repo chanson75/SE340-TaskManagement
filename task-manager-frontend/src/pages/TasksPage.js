@@ -12,7 +12,11 @@ const TasksPage = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       const result = await axios.get('http://localhost:3000/tasks');
-      const sortedTasks = result.data.sort((a, b) => new Date(a.due_date) - new Date(b.due_date));
+      const sortedTasks = result.data.sort((a, b) => {
+        if (a.status === 'Completed' && b.status !== 'Completed') return 1;
+        if (a.status !== 'Completed' && b.status === 'Completed') return -1;
+        return new Date(a.due_date) - new Date(b.due_date);
+      });
       setTasks(sortedTasks);
     };
     fetchTasks();
@@ -36,6 +40,18 @@ const TasksPage = () => {
       setEditingTaskId(null);
     } catch (err) {
       console.error('Error updating task:', err);
+    }
+  };
+
+  const handleRemoveClick = async (taskId) => {
+    const confirmed = window.confirm('Are you sure you want to delete this task?');
+    if (confirmed) {
+      try {
+        await axios.delete(`http://localhost:3000/tasks/${taskId}`);
+        setTasks(tasks.filter(task => task.id !== taskId));
+      } catch (err) {
+        console.error('Error removing task:', err);
+      }
     }
   };
 
@@ -95,6 +111,7 @@ const TasksPage = () => {
                 <p>{task.priority}</p>
                 <p>{task.status}</p>
                 <button onClick={() => handleEditClick(task)}>Edit</button>
+                <button onClick={() => handleRemoveClick(task.id)}>Remove</button>
               </div>
             )}
           </li>
@@ -104,4 +121,4 @@ const TasksPage = () => {
   );
 };
 
-export default TasksPage; 
+export default TasksPage;
