@@ -9,9 +9,9 @@ const port = 3000;
 const pool = new Pool({
   user: 'admin',
   host: 'localhost',
-  database: 'db',
+  database: 'tasksdb',
   password: 'admin',
-  port: 5433,
+  port: 5432, //UPDATE THIS LINE
 });
 
 app.use(bodyParser.json());

@@ -1,0 +1,203 @@
+Requirements:
+
+Install git: https://git-scm.com/downloads/win
+Install PostgreSQL: https://www.postgresql.org/download/
+Install PGAdmin: https://www.pgadmin.org/download/
+Install node.js: https://nodejs.org/en
+-----------------------------------------------------------
+if installing git, you have to do the following:
+
+step 0: 
+navigate to the link above and download and run the installer, all default values should be fine.
+
+Step 1: Locate Git Installation Path
+Open the folder where Git is installed. By default, it is usually installed in:
+C:\Program Files\Git\bin
+
+Step 2: Add Git to System PATH
+Press Win + X and select System.
+Click on Advanced system settings on the left.
+In the System Properties window, click on the Environment Variables button.
+In the Environment Variables window, find the Path variable in the System variables section and select it. Click Edit.
+In the Edit Environment Variable window, click New and add the path to the Git bin directory:
+Click OK to close all windows.
+
+Step 3: Verify Git Installation
+Open a new terminal in Visual Studio Code.
+Verify the installation by running:
+git --version
+You should see the installed Git version.
+---------------------------------------------------------------
+if downloading postgres, do the following:
+
+click on your operating system
+
+click download the installer
+
+then click on your operating system and it should begin downloading
+
+once installer is downloaded, run it and leave values as is until you get to the password window
+
+for the password, do 'admin' w/out the single quotes** IMPORTANT
+
+rest of default values are just fine
+
+this install will take a while, so install the pgadmin at the same time
+
+finish the install by clicking finish
+---------------------------------------------------------------
+if downloading pgadmin:
+
+go to above link
+
+click on your operating system (apple or windows) for pgadmin 4
+
+click on the latest version
+
+then click on the .exe file in this window, this will start to install the installer
+
+run the installer, all default values are fine here. this will go a bit quicker than the postgres download
+
+this will install another thing, it's like a c++ thing
+-------------------------------------------------------------------
+if downloading node js:
+
+go to above link and hit download
+
+run installer, default values are good, click finish when finished
+
+confirm by opening cmd prompt and type node -v and npm -v
+-------------------------------------------------------------------
+STEPS TO RUNNING
+
+Make a folder where you want the project.
+
+Open VS Code in that folder.
+
+Run the following command: git clone https://github.com/chanson75/SE340-TaskManagement.git
+
+Navigate to the directory: cd SE340-TaskManagement
+--------------------------------------------------------------------
+open pgadmin by searching for it or if you know where it downloaded to
+
+add new server called postgres
+
+connection tab:
+- hostname: localhost
+- port: try 5432, but if it doesn't work right away, change to one more or one less
+- username/password: admin
+
+hit save
+
+IF IT DOESNT TAKE YOU TO THE SERVER RIGHT AWAY, CHANGE THE PORT NUMBER
+---------------------------------------------------------------------
+right click and create a new database called db, make sure the owner is admin
+
+hit save
+
+click query tool near explorer word at top, stack with pointer icon
+
+run the query in there:
+
+CREATE TABLE tasks (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  description TEXT,
+  due_date DATE,
+  priority VARCHAR(50),
+  status VARCHAR(50)
+);
+
+to verify that it worked, run the following sql in there:
+
+select * from tasks
+
+it should return an empty table
+-------------------------------------------------
+IMPORTANT:
+
+go into the server.js file in the backend folder, on line 14, update the port number to whatever you registered the server on, default is 5433, but change that to whatever worked
+
+const pool = new Pool({
+  user: 'admin',
+  host: 'localhost',
+  database: 'db',
+  password: 'admin',
+  port: 5433, //UPDATE THIS LINE
+});
+--------------------------------------------------------
+change directory into the backend folder and run: 
+
+npm install
+
+do the same for frontend folder (takes a bit longer than backend)
+
+open two cmd prompts, navigate to backend and frontend folders in separate ones
+------------------------------------------------------
+in both folders, run the following command:
+
+npm start
+
+backend should give this output:
+
+> task-manager-backend@1.0.0 start
+> node server.js
+
+Server running on http://localhost:3000
+-------------------------------------------------------
+frontend should give this output:
+
+> task-manager-frontend@0.1.0 start
+> cross-env PORT=4000 react-scripts start
+
+(node:47524) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:47524) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+Starting the development server...
+
+One of your dependencies, babel-preset-react-app, is importing the
+"@babel/plugin-proposal-private-property-in-object" package without
+declaring it in its dependencies. This is currently working because
+"@babel/plugin-proposal-private-property-in-object" is already in your
+node_modules folder for unrelated reasons, but it may break at any time.
+
+babel-preset-react-app is part of the create-react-app project, which
+is not maintianed anymore. It is thus unlikely that this bug will
+ever be fixed. Add "@babel/plugin-proposal-private-property-in-object" to
+your devDependencies to work around this error. This will make this message
+go away.
+Compiled successfully!
+
+You can now view task-manager-frontend in the browser.
+
+  Local:            http://localhost:4000
+  On Your Network:  http://192.168.4.27:4000
+
+Note that the development build is not optimized.
+To create a production build, use npm run build.
+
+webpack compiled successfully
+--------------------------------------------------------------
+once running frontend command, it should open up the frontend on localhost:4000
+
+test backend is running by going to localhost:3000, should say welcome to API
+
+if there are any issues, check logs in the cmd prompt for frontend or backend issues, use gpt to troubleshoot
+
+you can you ctrl+c to stop running backend or frontend
+-----------------------------------------------------------------------
+IMPORTANT
+
+if you go to localhost:3000/tasks, and you get a server error, make sure the database name is the same as in server.js. should be called db, but make sure they're the same as the actual db name in pgadmin
+
+once this is fixed, you should see an empty brackets.
+------------------------------------------------------------------------
+try to enter a task by filling out the fields
+
+navigate by using the links or using the following endpoints:
+
+'/': home page
+'/success': successful entry
+'/tasks': view all tasks
+
+THANKS FOR MAKING IT THIS FAR, HOPE YOU HAD A GOOD TIME, REACH OUT IF THERE'S ANY ISSUES :)
